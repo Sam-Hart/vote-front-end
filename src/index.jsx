@@ -1,10 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Voting from './components/Voting';
+import {HashRouter, Router, Route, hashHistory} from 'react-router-dom';
+import App from './components/App';
 
-const pair = ['The Castles of Burgundy', 'Trajan'];
+const routes = <Route component={App} />;
 
 ReactDOM.render(
-    <Voting pair={pair} winner='The Castles of Burgundy' />,
+    <HashRouter>{routes}</HashRouter>,
     document.getElementById('app')
 );

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {List} from 'immutable';
 
 class Vote extends React.PureComponent {
     constructor(props) {
@@ -36,8 +37,11 @@ class Vote extends React.PureComponent {
 }
 
 Vote.propTypes = {
-    pair: PropTypes.array,
-    hasVoted: PropTypes.bool,
+    pair: PropTypes.oneOfType([
+        PropTypes.instanceOf(List),
+        PropTypes.array
+    ]),
+    hasVoted: PropTypes.string,
     vote: PropTypes.func
 };
 

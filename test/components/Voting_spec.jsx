@@ -13,7 +13,7 @@ import Voting from '../../src/components/Voting';
 describe('Voting', () => {
     it('renders a pair of buttons', () => {
         const votingComponent = renderIntoDocument(
-            <Voting pair={['The Castles of Burgundy', 'Trajan']} />
+            <Voting pair={List.of('The Castles of Burgundy', 'Trajan')} />
         );
         const buttons = scryRenderedDOMComponentsWithTag(votingComponent, 'button');
         expect(buttons.length).to.equal(2);
@@ -25,7 +25,7 @@ describe('Voting', () => {
         let votedWith;
         const vote = (entry) => votedWith = entry;
         const votingComponent = renderIntoDocument(
-            <Voting pair={['The Castles of Burgundy', 'Trajan']} vote={vote} />
+            <Voting pair={List.of('The Castles of Burgundy', 'Trajan')} vote={vote} />
         );
         const buttons = scryRenderedDOMComponentsWithTag(
             votingComponent,
@@ -37,7 +37,7 @@ describe('Voting', () => {
 
     it('disables buttons when user has voted', () => {
         const votingComponent = renderIntoDocument(
-            <Voting pair={['Bora Bora', 'Macao']} hasVoted='Macao' />
+            <Voting pair={List.of('Bora Bora', 'Macao')} hasVoted='Macao' />
         );
         const voteButtons = scryRenderedDOMComponentsWithTag(
             votingComponent,
@@ -50,7 +50,7 @@ describe('Voting', () => {
 
     it('adds label to the voted entry', () => {
         const votingComponent = renderIntoDocument(
-            <Voting pair={['Bora Bora', 'Macao']} hasVoted='Macao' />
+            <Voting pair={List.of('Bora Bora', 'Macao')} hasVoted='Macao' />
         );
         const voteButtons = scryRenderedDOMComponentsWithTag(
             votingComponent,
@@ -88,13 +88,14 @@ describe('Voting', () => {
 
         let firstButton = scryRenderedDOMComponentsWithTag(component, 'button')[0];
         expect(firstButton.textContent).to.equal('Bora Bora');
+
         const newPair = pair.set(0, 'Trajan');
         component = ReactDOM.render(
             <Voting pair={newPair} />,
             container
         );
         firstButton = scryRenderedDOMComponentsWithTag(component, 'button')[0];
-        expect(firstButton.textContent).to.equal('Bora Bora');
+        expect(firstButton.textContent).to.equal('Trajan');
     });
 
 });

@@ -22,6 +22,7 @@ module.exports = {
     ],
     "rules": {
         "no-console": 1,
+        "react/no-find-dom-node": 1,
         "react/no-render-return-value": 1,
         "react/no-string-refs": 1,
         "no-unused-vars": 1,
