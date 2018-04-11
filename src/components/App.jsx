@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {List, Map} from 'immutable';
 import {Route, Switch} from 'react-router-dom';
-import Voting from './Voting';
+import {VotingContainer} from './Voting';
 import Results from './Results';
 
 const pair = List.of('Trajan', 'Macao');
@@ -22,7 +22,9 @@ class App extends React.Component {
                 />
                 <Route
                     path='/'
-                    render={() => <Voting pair={pair} />}
+                    render={() => {
+                        <VotingContainer {...this.props} />;
+                    }}
                 />
             </Switch>
         </React.Fragment>;
