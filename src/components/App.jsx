@@ -18,13 +18,11 @@ class App extends React.Component {
             <Switch>
                 <Route
                     path='/results'
-                    render={() => <Results pair={pair} tally={tally} />}
+                    render={() => <Results {...this.props} />}
                 />
                 <Route
                     path='/'
-                    render={() => {
-                        <VotingContainer {...this.props} />;
-                    }}
+                    render={() => <VotingContainer {...this.props} />}
                 />
             </Switch>
         </React.Fragment>;
