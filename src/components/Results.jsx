@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {List, Map} from 'immutable';
+import {connect} from 'react-redux';
 import Winner from './Winner';
 
-class Results extends React.PureComponent {
+export class Results extends React.PureComponent {
     constructor(props) {
         super(props);
     }
@@ -55,5 +56,9 @@ Results.propTypes = {
     next: PropTypes.func,
     winner: PropTypes.string
 };
-
-export default Results;
+let mapStateToProps = state => ({
+    pair: state.getIn(['vote', 'pair']),
+    tally: state.getIn(['vote', 'tally']),
+    winner: state.get('winner')
+});
+export const ResultsContainer = connect(mapStateToProps)(Results);

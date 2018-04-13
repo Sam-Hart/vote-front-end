@@ -3,10 +3,7 @@ import PropTypes from 'prop-types';
 import {List, Map} from 'immutable';
 import {Route, Switch} from 'react-router-dom';
 import {VotingContainer} from './Voting';
-import Results from './Results';
-
-const pair = List.of('Trajan', 'Macao');
-const tally = Map({'Trajan': 7, 'Macao': 9});
+import {ResultsContainer} from './Results';
 
 class App extends React.Component {
     constructor(props) {
@@ -18,7 +15,7 @@ class App extends React.Component {
             <Switch>
                 <Route
                     path='/results'
-                    render={() => <Results {...this.props} />}
+                    render={() => <ResultsContainer {...this.props} />}
                 />
                 <Route
                     path='/'
