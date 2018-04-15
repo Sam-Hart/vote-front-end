@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {List, Map} from 'immutable';
 import {connect} from 'react-redux';
 import Winner from './Winner';
+import * as actionCreators from '../action_creators';
 
 export class Results extends React.PureComponent {
     constructor(props) {
@@ -61,4 +62,7 @@ let mapStateToProps = state => ({
     tally: state.getIn(['vote', 'tally']),
     winner: state.get('winner')
 });
-export const ResultsContainer = connect(mapStateToProps)(Results);
+export const ResultsContainer = connect(
+    mapStateToProps,
+    actionCreators
+)(Results);

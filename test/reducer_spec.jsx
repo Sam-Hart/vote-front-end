@@ -65,4 +65,63 @@ describe('reducer', () => {
             }
         }));
     });
+
+    it('handles VOTE by setting hasVoted', () => {
+        const state = fromJS({
+            vote: {
+                pair: ['Bora Bora', 'Macao'],
+                tally: {Macao: 12}
+            }
+        });
+        const action = {type: 'VOTE', entry: 'Bora Bora'};
+        const nextState = reducer(state, action);
+        expect(nextState).to.equal(fromJS({
+            vote: {
+                pair: ['Bora Bora', 'Macao'],
+                tally: {Macao: 12}
+            },
+            hasVoted: 'Bora Bora'
+        }));
+    });
+
+    it('does not set hasVoted for VOTE on invalid entry', () => {
+        const state = fromJS({
+            vote: {
+                pair: ['Bora Bora', 'Macao'],
+                tally: {Macao: 98}
+            }
+        });
+        const action = {type: 'VOTE', entry: 'The Castles of Burgundy'};
+        const nextState = reducer(state, action);
+        expect(nextState).to.equal(fromJS({
+            vote: {
+                pair: ['Bora Bora', 'Macao'],
+                tally: {Macao: 98}
+            }
+        }));
+    });
+
+    it('removes hasVoted on SET_STATE if pair changes', () => {
+        const initialState = fromJS({
+            vote: {
+                pair: ['Bora Bora', 'Macao'],
+                tally: {'Bora Bora': 944}
+            },
+            hasVoted: 'Bora Bora'
+        });
+        const action = {
+            type: 'SET_STATE',
+            state: {
+                vote: {
+                    pair: ['The Castles of Burgundy', 'Trajan']
+                }
+            }
+        };
+        const nextState = reducer(initialState, action);
+        expect(nextState).to.equal(fromJS({
+            vote: {
+                pair: ['The Castles of Burgundy', 'Trajan']
+            }
+        }));
+    });
 });

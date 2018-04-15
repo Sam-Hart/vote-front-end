@@ -1,21 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {HashRouter, Router, Route, hashHistory} from 'react-router-dom';
-import {createStore} from 'redux';
+import {HashRouter, Route, hashHistory} from 'react-router-dom';
+import {createStore, applyMiddleware} from 'redux';
 import {Provider} from 'react-redux';
+import io from 'socket.io-client';
+import {setState} from './action_creators';
+import remoteActionMiddleWare from './remote_action_middleware';
 import reducer from './reducer';
 import App from './components/App';
 
-const store = createStore(reducer);
-store.dispatch({
-    type: 'SET_STATE',
-    state: {
-        vote: {
-            pair: ['Bora Bora', 'Macao'],
-            tally: {'Bora Bora': 12}
-        }
-    }
-});
+const socket = io(`${location.protocol}//${location.hostname}:8090`);
+socket.on('state', state => store.dispatch(setState(state)));
+
+const createStoreWithMiddleware = applyMiddleware(
+    remoteActionMiddleWare(socket)
+)(createStore);
+
+const store = createStoreWithMiddleware(reducer);
 
 const routes = <Route component={App} />;
 
